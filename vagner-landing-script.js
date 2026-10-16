@@ -1,20 +1,3 @@
-
-if ('scrollRestoration' in history) {
-  history.scrollRestoration = 'manual';
-}
-
-window.addEventListener('load', () => {
-  if (window.location.hash) {
-    history.replaceState(
-      null,
-      '',
-      window.location.pathname + window.location.search
-    );
-  }
-
-  window.scrollTo(0, 0);
-});
-
 // Scroll reveal
 const revealEls = document.querySelectorAll('.reveal');
 if ('IntersectionObserver' in window) {
@@ -47,3 +30,25 @@ faqItems.forEach((item) => {
   });
 });
  
+if ('scrollRestoration' in history) {
+  history.scrollRestoration = 'manual';
+}
+
+if (window.performance) {
+  window.addEventListener('pageshow', () => {
+    if (window.location.hash) {
+      history.replaceState(
+        null,
+        '',
+        window.location.pathname + window.location.search
+      );
+    }
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'instant'
+    });
+  });
+}
+
